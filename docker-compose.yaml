@@ -15,20 +15,20 @@ services:
       - "3306:3306"
   
   # Node.js API service
-  api:
-    image: node
-    container_name: api
-    restart: always
-    depends_on:
-      - db
-    ports:
-      - "3000:3000"
-    volumes:
-      - ".:/home/node/app"
-    environment:
-      - MYSQL_IP=db
-    working_dir: /home/node/app
-    command: npm run start:dev
+  # api:
+  #   image: node
+  #   container_name: api
+  #   restart: always
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ".:/home/node/app"
+  #   environment:
+  #     - MYSQL_IP=db
+  #   working_dir: /home/node/app
+  #   command: npm run start:dev
 
   # phpMyAdmin service
   phpmyadmin:

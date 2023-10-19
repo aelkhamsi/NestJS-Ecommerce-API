@@ -1,11 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-console.log('MYSQL_ROOT_PASSWORD:', process.env.MYSQL_ROOT_PASSWORD);
-console.log('MYSQL_DATABASE:', process.env.MYSQL_DATABASE);
-
 const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: 'db',
+  host: 'localhost',
   port: 3306,
   username: 'root',
   password: 'changeme',
