@@ -1,23 +1,12 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { LoginDto } from '../dto/login.dto';
-import { SignupDto } from '../dto/sign-in.dto';
+import { SignupDto } from '../dto/sign-up.dto';
+import { SerializedUser } from 'src/modules/user/entities/serialized-user';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
-  @Get()
-  getHello(): string {
-    return 'Hello';
-  }
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -28,8 +17,15 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('signup')
-  signup(@Body() signupDto: SignupDto) {
+  async signup(@Body() signupDto: SignupDto) {
     const { firstName, lastName, email, password } = signupDto;
-    return this.authService.signup(firstName, lastName, email, password);
+    const user = await this.authService.signup(
+      firstName,
+      lastName,
+      email,
+      password,
+    );
+
+    return new SerializedUser(user);
   }
 }
